@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import StudentList from './components/StudentList';
+import FavouriteStudent from './components/FavouritesStudent';
+import StudentContextProvider from './components/StudentContextProvider';
+import Header from './components/Header';
+import './index.css'
 
-function App() {
+
+
+function App(props) {
+
+  const [slist, setSlist] = useState(props.setSList)
+  const [flist, setFlist] = useState(props.setFList)
+ 
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Header setSList={setSlist} setFList={setFlist}/>
+      <StudentContextProvider>
+        <div>
+          {slist && <StudentList />}
+          {flist && <FavouriteStudent />}
+        </div>
+      </StudentContextProvider>
     </div>
   );
 }
